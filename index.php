@@ -2,4 +2,8 @@
 
 $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_STRING);
 
+if (!($page)) {
+    $page = 'accueil';
+}
+
 require_once "./Controlleur/$page.php";

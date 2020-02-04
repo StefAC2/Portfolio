@@ -11,11 +11,11 @@
     </head>
     <body>
 		<main class="container">
-			<?php require_once './View/nav.php' ?>
+			<?php require_once './View/nav.php'; ?>
 			<div class="row">
 				<!-- begin aside -->
 				<aside class="col-5">
-					<div class="card" style="width: 18rem;">
+					<div class="card mx-auto" style="width: 18rem;">
 						<img src="./img/bg_5.jpg" class="card-img-top" alt="blogPicture">
 						<div class="card-body">
 							<h5 class="card-title">Nom du blog</h5>
