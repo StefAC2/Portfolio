@@ -1,6 +1,6 @@
 <!-- begin nav -->
 <nav class="navbar navbar-expand-md navbar-dark bg-info mb-4">
-    <i class="fab fa-bootstrap fa-2x"></i>
+    <i class="fab fa-facebook-square fa-2x" style="color: #ffffff;"></i>
     <form class="form-inline mt-2 mt-md-0 input-group col-4" action="#" method="post">
         <input class="form-control" type="text" placeholder="Search" aria-label="Search">
         <div class="input-group-append">
@@ -16,7 +16,7 @@
             <a class="nav-link" href="?page=accueil"><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-            <a class="nav-link" href="?page=post"><i class="fas fa-plus"></i> Link</a>
+            <a class="nav-link" href="?page=post"><i class="fas fa-plus"></i> Post</a>
         </li>
         </ul>
     </div>

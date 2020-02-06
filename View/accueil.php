@@ -16,11 +16,11 @@
 				<!-- begin aside -->
 				<aside class="col-5">
 					<div class="card mx-auto" style="width: 18rem;">
-						<img src="./img/bg_5.jpg" class="card-img-top" alt="blogPicture">
+						<img src="./media/img/bg_5.jpg" class="card-img-top" alt="blogPicture">
 						<div class="card-body">
 							<h5 class="card-title">Nom du blog</h5>
 							<p class="card-text text-muted">Nb Followers, Nb Posts</p>
-							<a href="#"><img src="./img/user.png" alt="profilePicture"></a>
+							<a href="#"><img src="./media/img/user.png" alt="profilePicture"></a>
 						</div>
 					</div>
 				</aside>
