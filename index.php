@@ -1,8 +1,12 @@
 <?php
 
+$pages = [
+    'accueil', 'post'
+];
+
 $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_STRING);
 
-if (!($page)) {
+if (!in_array($page, $pages)) {
     $page = 'accueil';
 }
 
