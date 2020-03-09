@@ -1,15 +1,12 @@
-<?php
-
-?>
 <!DOCTYPE html>
 <html>
 	<head>
-        <meta charset="utf-8"/>
-        <title>Fakebook</title>
+		<meta charset="utf-8"/>
+		<title>Fakebook</title>
 		<link href="css/bootstrap.css" rel="stylesheet"/>
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet"/>
-    </head>
-    <body>
+	</head>
+	<body>
 		<main class="container">
 			<?php require_once './View/nav.php'; ?>
 			<div class="row">
@@ -29,6 +26,9 @@
 				<section class="col-7">
 					<div class="jumbotron">
 						<h1 class="display-4">Welcome</h1>
+					</div>
+					<div>
+						<?= showPosts($posts) ?>
 					</div>
 				</section>
 				<!-- end section -->
