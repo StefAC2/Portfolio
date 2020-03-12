@@ -76,6 +76,31 @@ function addMedia($media, $idPost) {
   return true;
 }
 
+function getPost($idPost) {
+  $connection = ConnectDB();
+
+  $post = FALSE;
+
+  try
+  {
+    $query = $connection->prepare('SELECT * FROM Post WHERE idPost = :id;');
+    $query->bindParam(':id', $idPost, PDO::PARAM_INT);
+    $query->execute();
+
+    $post = $query->fetch(PDO::FETCH_NAMED);
+
+    $query = $connection->prepare('SELECT idMedia, typeMedia, nomMedia FROM Media WHERE idPost = :id');
+    $query->bindParam(':id', $idPost, PDO::PARAM_INT);
+    $query->execute();
+
+    $post['medias'] = $query->fetchAll(PDO::FETCH_NAMED);
+
+  } catch (Exception $e) {
+    echo $e->getMessage();
+  }
+  return $post;
+}
+
 /**
  * return the post data and the medias associated with it
  */

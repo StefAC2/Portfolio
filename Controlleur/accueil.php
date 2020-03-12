@@ -21,6 +21,7 @@ function showPosts($posts) {
 
     $output .= '<br>' . $post['commentaire'] . '<br>';
     $output .= '<figcaption class="figure-caption">Date de création: ' . $post['creationDate'] . ' <br>Date de modification: ' . $post['modificationDate'] . '<//figcaption>';
+    $output .= '<br><a href="Controlleur/modifyPost.php?idPost=' . $post['idPost'] . '"><button class="btn btn-success">Modifier</button></a> ';
     $output .= '<a href="Controlleur/deletePost.php?idPost=' . $post['idPost'] . '"><button class="btn btn-danger">Supprimer</button></a>';
     $output .= '</figure>';
   }

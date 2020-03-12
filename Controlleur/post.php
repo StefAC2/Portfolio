@@ -48,7 +48,7 @@ if (!empty($commentaire) && !empty($_FILES) && $count != count($invalidMedias)) 
 
   if ($isGoodType && !$isTooBig) {
     commitTransaction();
-    //header('Location: ?');
+    header('Location: ?');
   } else {
     rollBack();
   }
