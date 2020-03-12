@@ -19,8 +19,8 @@
 					<br/>
 					<div class="input-group mb-3">
 						<div class="custom-file">
-							<input type="file" multiple accept="image/*" name="images[]" class="custom-file-input" id="images" required/>
-							<label class="custom-file-label" for="images">Vos photos</label>
+							<input type="file" multiple accept="image/*,video/*,audio/*" name="medias[]" class="custom-file-input" id="images" required/>
+							<label class="custom-file-label" for="images">Vos medias</label>
 						</div>
 					</div>
 					<input type="submit" value="Poster" class="btn btn-info"/>

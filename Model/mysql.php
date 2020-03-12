@@ -54,17 +54,17 @@ function addPost($commentaire) {
 }
 
 /**
- * @param $image = ['typeMedia', 'nomMedia']
- * @param $idPost = id du post lié a ces images
+ * @param $media = ['typeMedia', 'nomMedia']
+ * @param $idPost = id du post lié a ces medias
  */
-function addImage($image, $idPost) {
+function addMedia($media, $idPost) {
   $connection = ConnectDB();
 
   try {
     $requete = $connection->prepare('INSERT INTO Media (typeMedia, nomMedia, idPost) VALUES (:typeMedia, :nomMedia, :idPost);');
 
-    $requete->bindParam(':typeMedia', $image[0], PDO::PARAM_STR);
-    $requete->bindParam(':nomMedia', $image[1], PDO::PARAM_STR);
+    $requete->bindParam(':typeMedia', $media[0], PDO::PARAM_STR);
+    $requete->bindParam(':nomMedia', $media[1], PDO::PARAM_STR);
     $requete->bindParam(':idPost', $idPost, PDO::PARAM_INT);
 
     $requete->execute();
@@ -77,7 +77,7 @@ function addImage($image, $idPost) {
 }
 
 /**
- * return the post data and the images associated with it
+ * return the post data and the medias associated with it
  */
 function getAllPosts() {
   $connection = ConnectDB();
@@ -91,13 +91,13 @@ function getAllPosts() {
 
     while ($post = $postQuery->fetch(PDO::FETCH_NAMED))
     {
-      $imageQuery = $connection->prepare('SELECT nomMedia, creationDate, modificationDate FROM Media WHERE idPost = :id;');
-      $imageQuery->bindParam(':id', $post['idPost'], PDO::PARAM_INT);
-      $imageQuery->execute();
+      $mediaQuery = $connection->prepare('SELECT typeMedia, nomMedia, creationDate, modificationDate FROM Media WHERE idPost = :id;');
+      $mediaQuery->bindParam(':id', $post['idPost'], PDO::PARAM_INT);
+      $mediaQuery->execute();
 
-      $images = $imageQuery->fetchAll(PDO::FETCH_NAMED);
+      $medias = $mediaQuery->fetchAll(PDO::FETCH_NAMED);
 
-      $post['images'] = $images;
+      $post['medias'] = $medias;
 
       $posts[] = $post;
     }
@@ -105,4 +105,33 @@ function getAllPosts() {
     echo $e->getMessage();
   }
   return $posts;
+}
+
+function deletePost($idPost) {
+  $connection = ConnectDB();
+
+  try
+  {
+    $mediaQuery = $connection->prepare('SELECT nomMedia FROM Media WHERE idPost = :id;');
+    $mediaQuery->bindParam(':id', $idPost, PDO::PARAM_INT);
+    $mediaQuery->execute();
+
+    $medias = $mediaQuery->fetchAll(PDO::FETCH_NAMED);
+
+    foreach ($medias as $value) {
+      $filePath = '../media/' . $value['nomMedia'];
+      echo $filePath;
+      if (file_exists($filePath)) {
+        echo 'unlinking';
+        unlink($filePath);
+      }
+    }
+
+    $request = $connection->prepare('DELETE FROM Post WHERE idPost = :id;');
+    $request->bindParam(':id', $idPost, PDO::PARAM_INT);
+    $request->execute();
+
+  } catch (Exception $e) {
+    echo $e->getMessage();
+  }
 }

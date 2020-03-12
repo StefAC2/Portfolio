@@ -5,42 +5,47 @@ $commentaire = filter_input(INPUT_POST, 'commentaire', FILTER_SANITIZE_STRING);
 $isGoodType = true;
 $isTooBig = false;
 
-$invalidImages = [];
+$invalidMedias = [];
 
-foreach ($_FILES['images']['error'] as $key => $value) {
+foreach ($_FILES['medias']['error'] as $key => $value) {
   if ($value != 0) {
-    $invalidImages[] = $key;
+    $invalidMedias[] = $key;
     $isTooBig = true;
   }
 }
 
-$count = count($_FILES['images']['name']);
+$count = count($_FILES['medias']['name']);
 
 beginTransaction();
-if (!empty($commentaire) && !empty($_FILES) && $count != count($invalidImages)) {
+if (!empty($commentaire) && !empty($_FILES) && $count != count($invalidMedias)) {
   $idPost = addPost($commentaire);
 
   for ($i = 0; $i < $count; $i++) {
-    if (in_array($i, $invalidImages)) {
+    if (in_array($i, $invalidMedias)) {
       continue;
     }
 
-    $tmpName = $_FILES['images']['tmp_name'][$i];
+    $tmpName = $_FILES['medias']['tmp_name'][$i];
     $name = md5($tmpName . (new DateTime())->getTimestamp());
 
     $fullType = mime_content_type($tmpName);
     $type = explode('/', $fullType);
 
-    if ($type[0] == 'image') {
+    $types = ['img' => 'image', 'vid' => 'video', 'aud' => 'audio'];
+
+    if (in_array($type[0], $types)) {
       $extension = '.' . $type[1];
-      $destination = 'img/' . $name . $extension;
+
+      $folder = array_search($type[0], $types);
+
+      $destination = $folder . '/' . $name . $extension;
       move_uploaded_file($tmpName, './media/' . $destination);
-      addImage([$fullType, $destination], $idPost);
+      addMedia([$fullType, $destination], $idPost);
     } else {
       $isGoodType = false;
     }
   }
-  
+
   if ($isGoodType && !$isTooBig) {
     commitTransaction();
     //header('Location: ?');
