@@ -1,7 +1,7 @@
 <?php
 
 $pages = [
-    'accueil', 'post'
+    'accueil', 'post', 'modifyPost'
 ];
 
 $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_STRING);

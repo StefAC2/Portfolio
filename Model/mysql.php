@@ -145,9 +145,7 @@ function deletePost($idPost) {
 
     foreach ($medias as $value) {
       $filePath = '../media/' . $value['nomMedia'];
-      echo $filePath;
       if (file_exists($filePath)) {
-        echo 'unlinking';
         unlink($filePath);
       }
     }
@@ -155,6 +153,43 @@ function deletePost($idPost) {
     $request = $connection->prepare('DELETE FROM Post WHERE idPost = :id;');
     $request->bindParam(':id', $idPost, PDO::PARAM_INT);
     $request->execute();
+
+  } catch (Exception $e) {
+    echo $e->getMessage();
+  }
+}
+
+function modifyPost($idPost, $newValue) {
+  $connection = ConnectDB();
+
+  try
+  {
+    $request = $connection->prepare('UPDATE Post SET commentaire=:commentaire WHERE idPost=:idPost');
+    $request->bindParam(':commentaire', $newValue, PDO::PARAM_STR);
+    $request->bindParam(':idPost', $idPost, PDO::PARAM_INT);
+    $request->execute();
+
+  } catch (Exception $e) {
+    echo $e->getMessage();
+  }
+}
+
+function removeMediaFromPost($medias) {
+  $connection = ConnectDB();
+
+  try
+  {
+    foreach ($medias as $value) {
+      $filePath = './media/' . $value;
+      if (file_exists($filePath)) {
+        unlink($filePath);
+      }
+    }
+
+    $names = implode('" or nomMedia="', $medias);
+
+    $mediaQuery = $connection->prepare('DELETE FROM Media WHERE nomMedia="' . $names . '";');
+    $mediaQuery->execute();
 
   } catch (Exception $e) {
     echo $e->getMessage();

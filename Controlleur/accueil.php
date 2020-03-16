@@ -13,15 +13,15 @@ function showPosts($posts) {
       if ($type == 'image') {
         $output .= '<img src="./media/' . $media['nomMedia'] . '" class="figure-img rounded img-fluid" alt=""/>&nbsp;';
       } else {
-        $output .= '<' . $type . ' class="img-fluid col-12" controls';
-        $output .= $type == 'video' ? ' autoplay loop' : '';
-        $output .= '><source src="./media/' . $media['nomMedia'] . '" type="' . $media['typeMedia'] . '"/></' . $type . '>';
+        $output .= '<' . $type . ' class="col-12';
+        $output .= $type == 'video' ? ' img-fluid" autoplay loop' : '"';
+        $output .= ' controls><source src="./media/' . $media['nomMedia'] . '" type="' . $media['typeMedia'] . '"/></' . $type . '>';
       }
     }
 
     $output .= '<br>' . $post['commentaire'] . '<br>';
-    $output .= '<figcaption class="figure-caption">Date de création: ' . $post['creationDate'] . ' <br>Date de modification: ' . $post['modificationDate'] . '<//figcaption>';
-    $output .= '<br><a href="Controlleur/modifyPost.php?idPost=' . $post['idPost'] . '"><button class="btn btn-success">Modifier</button></a> ';
+    $output .= '<figcaption class="figure-caption">Date de création: ' . $post['creationDate'] . ' <br>Date de modification: ' . $post['modificationDate'] . '</figcaption>';
+    $output .= '<br><a href="?page=modifyPost&idPost=' . $post['idPost'] . '"><button class="btn btn-success">Modifier</button></a> ';
     $output .= '<a href="Controlleur/deletePost.php?idPost=' . $post['idPost'] . '"><button class="btn btn-danger">Supprimer</button></a>';
     $output .= '</figure>';
   }
